@@ -20,17 +20,13 @@ MODEL_REPO="unsloth/Qwen3.6-27B-NVFP4"
 echo "=== Downloading ${MODEL_REPO} ==="
 echo ""
 
-# Use HF default cache (avoids duplicating if already downloaded by another tool)
-if command -v huggingface-cli >/dev/null 2>&1; then
-  echo "Using huggingface-cli ..."
-  HF_HUB_ENABLE_HF_TRANSFER=1 \
-    huggingface-cli download "${MODEL_REPO}"
-elif command -v hf >/dev/null 2>&1; then
+# Use `hf` CLI (fast with hf_transfer/Xet).
+if command -v hf >/dev/null 2>&1; then
   echo "Using hf CLI ..."
-  HF_HUB_ENABLE_HF_TRANSFER=1 \
+  HF_XET_HIGH_PERFORMANCE=1 \
     hf download "${MODEL_REPO}"
 else
-  echo "ERROR: neither 'huggingface-cli' nor 'hf' found." >&2
+  echo "ERROR: 'hf' not found." >&2
   echo "  Install: pip install 'huggingface-hub[hf_transfer]'" >&2
   exit 1
 fi

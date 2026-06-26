@@ -53,7 +53,7 @@ repos = [r.repo_id for rev in cache.repos for r in [rev]]
 exit(0 if '$MODEL_REPO' in repos else 1)
 " 2>/dev/null; then
   echo "[3/4] Downloading $MODEL_REPO (~14 GB)..."
-  HF_HUB_ENABLE_HF_TRANSFER=1 huggingface-cli download "$MODEL_REPO"
+  HF_XET_HIGH_PERFORMANCE=1 hf download "$MODEL_REPO"
 else
   echo "[3/4] Model already cached."
 fi
